@@ -1,50 +1,43 @@
 # QUESTION
 
-# You are given a 2D integer array properties having dimensions n x m and an integer k.
-# Define a function intersect(a, b) that returns the number of distinct integers common to both arrays a and b.
-# Construct an undirected graph where each index i corresponds to properties[i]. There is an edge between node i and node j if and only if intersect(properties[i], properties[j]) >= k, where i and j are in the range [0, n - 1] and i != j.
-# Return the number of connected components in the resulting graph.
+# You are given a circular array nums and an array queries.
+# For each query i, you have to find the following:
+# The minimum distance between the element at index queries[i] and any other index j in the circular array, where nums[j] == nums[queries[i]]. If no such index exists, the answer for that query should be -1.
+# Return an array answer of the same size as queries, where answer[i] represents the result for query i.
 
 # EXAMPLE 
-# Input: properties = [[1,2],[1,1],[3,4],[4,5],[5,6],[7,7]], k = 1
-# Output: 3
+# Input: nums = [1,3,1,4,1,3,2], queries = [0,3,5]
+# Output: [2,-1,3]
 # Explanation:
-# The graph formed has 3 connected components:
+# Query 0: The element at queries[0] = 0 is nums[0] = 1. The nearest index with the same value is 2, and the distance between them is 2.
+# Query 1: The element at queries[1] = 3 is nums[3] = 4. No other index contains 4, so the result is -1.
+# Query 2: The element at queries[2] = 5 is nums[5] = 3. The nearest index with the same value is 1, and the distance between them is 3 (following the circular path: 5 -> 6 -> 0 -> 1).
 
 # CODE
 from typing import List
 
-def dfs(graph: dict, visited: dict, start: int) -> None:
-    visited[start] = 1
-    for i in graph[start]:
-        if not visited[i]:
-            dfs(graph, visited, i)
-
-def count_components(graph: dict) -> int:
-    res = 0
-    s = [_ for _ in range(len(graph))]
-    while s:
-        visited = {_: 0 for _ in range(len(graph))}
-        dfs(graph, visited, s[0])
-        for _ in visited:
-            if visited[_] == 1:
-                s.remove(_)
-        res += 1
-    
-    return res
-
 class Solution:
-    def numberOfComponents(self, properties: List[List[int]], k: int) -> int:
-        pro = list(map(set, properties))
-        graph = {_: [] for _ in range(len(pro))}
-
-        for i in range(len(pro)):
-            for j in range(len(pro)):
-                if i != j:
-                    if len(pro[i].intersection(pro[j])) >= k:
-                        graph[i].append(j)
+    def solveQueries(self, nums: List[int], queries: List[int]) -> List[int]:
+        dic = dict()
+        for i in range(len(nums)):
+            try:
+                dic[nums[i]].append(i)
+            except:
+                dic[nums[i]] = [i]
         
-        return count_components(graph)
+        idx = {i: nums[i] for i in range(len(nums))}
+        
+        res = [-1 for i in range(len(queries))]
+        for i in range(len(queries)):
+            m = idx[queries[i]]
+            if len(dic[m]) == 1:
+                continue
+            for j in dic[m]:
+                if j != queries[i]:
+                    res[i] = j
+                    break
+        
+        return res
 
 obj = Solution()
-print(obj.numberOfComponents([[1,1],[1,1]], 2))
+print(obj.solveQueries([1,3,1,4,1,3,2], [0,3,5]))
