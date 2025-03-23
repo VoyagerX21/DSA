@@ -1,0 +1,3 @@
+W : Wrong Answer
+DR : Debug Required
+TLE : Time Limit Exceeded
