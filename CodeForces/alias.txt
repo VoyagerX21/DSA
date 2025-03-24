@@ -1,3 +1,4 @@
 W : Wrong Answer
 DR : Debug Required
 TLE : Time Limit Exceeded
+HTR: Hidden Testcase Required
