@@ -3,4 +3,5 @@ DR : Debug Required
 TLE : Time Limit Exceeded
 D : Done
 OG : One GO
-OC : On Coding 
+OC : On Coding
+VH: Video Help

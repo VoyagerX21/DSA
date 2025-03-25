@@ -1,4 +1,7 @@
 W : Wrong Answer
 DR : Debug Required
 TLE : Time Limit Exceeded
+D : Done
+OG : One GO
+OC : On Coding 
 HTR: Hidden Testcase Required
