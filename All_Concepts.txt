@@ -1,1 +1,2 @@
 1. Linesweep Technique
+2. Boyer–Moore majority vote algo
