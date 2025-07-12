@@ -38,7 +38,8 @@ class Solution:
             return seen[i]
             
         seen = [-1 for _ in range(len(nums))]
-        solve(nums, 0)
+        solve(nums[1:], 0)
+        print(seen)
 
 obj = Solution()
-print(obj.rob([2,7,9,3,1]))
+print(obj.rob([2,3,2]))
